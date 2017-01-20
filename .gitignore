@@ -1,0 +1,5 @@
+venv
+datos db
+*.pyc
+staticfiles
+distrib/migrations/
