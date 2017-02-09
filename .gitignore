@@ -1,5 +1,6 @@
 venv
 datos db
+superuser
 *.pyc
 staticfiles
 distrib/migrations/
