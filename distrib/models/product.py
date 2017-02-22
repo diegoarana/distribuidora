@@ -1,11 +1,9 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.core.validators import MaxValueValidator
-from .sale import Sale
 from .catalog import Catalog
 
 class Product(models.Model):
-	sale = models.ManyToManyField(Sale)
 	catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, related_name="catalog", null=True)
 	amount = models.PositiveIntegerField(validators=[MaxValueValidator(999)], blank = True, null = True)
 

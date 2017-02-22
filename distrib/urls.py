@@ -19,8 +19,10 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
+		url(r'^$', views.homepage, name='homepage'),
+		url(r'^inicio/$', views.inicio_distribuidor, name='inicio_distribuidor'),
 		url(r'^client/$', views.client),
-		url(r'^client_list/$', views.client_list),
+		url(r'^client/(?P<id>[0-9]+)/$', views.client_detail, name='client_detail'),
 		#url(r'^products/(?P<pk>[0-9]+)$', views.product_detail),
 
 ]

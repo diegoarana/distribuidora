@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_head %}
+ <script type="text/javascript" src="{% static "distrib/js/jquery-3.1.1.min.js" %}"></script>
+  
+ <script src="{% static "distrib/js/jquery-ui.js" %}"></script>
+   
+ <link rel="stylesheet" href="{% static "distrib/css/jquery-ui.css" %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="ui-widget">
+    <label for="tags5">Buscar cliente: </label>
+    <input id="tags5" placeholder="apellido o dni">
+</div>
+
+{% endblock %}
+
+<!-- Agregar atributo href a un boton para seleccionar cliente.
+    Agragamos un tag button despues del input sin atributo href, y en la seccion 
+    select del script añadimos:
+
+    document.getElementsByIdTagName("BUTTON")[0].setAttribute("href","{ url en django }")
+
+    también funciona con la función getElementsById()
+-->
+
+
+{% block extra_js %}
+
+<script type="text/javascript">
+
+    $(function(){
+ 
+      $("#tags5").autocomplete({
+        minLength:3,
+        source: function(req, add){
+          var search=$("#tags5").val();
+          $.ajax({
+            url:'http://localhost:8000/client/',
+            async:true,
+            dataType:'json',
+            type:'GET',
+            data:{ 'q': search,},
+            success: function(data){
+              var suggestions=[];
+
+              $.each(data, function(index, objeto){
+                suggestions.push(objeto); 
+              });
+
+              add(suggestions);
+
+              
+            },
+            error:function(err){
+              alert("error");
+            }
+          });
+        }
+
+      });
+
+      $( "#tags5" ).autocomplete({
+      select: function( event, ui ) {
+        id = ui.item.id;
+        url = 'http://localhost:8000/client/'+id;
+        document.location.href = url;
+      }
+      
+        });
+
+    });
+
+    </script>
+
+{% endblock %}

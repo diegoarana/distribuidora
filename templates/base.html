@@ -1,0 +1,77 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Marcucci</title>
+
+    {% block extra_head %}
+    {% endblock %}
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "distrib/css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "distrib/css/navbar-fixed-top.css" %}" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Marcucci</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Buscar</a></li>
+            <li><a href="#about">Stock</a></li>
+            <li><a href="#contact">Contacto</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="">Default</a></li>
+            <li><a href="">Static top</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container" >
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron" style="margin: 1rem; padding: 1rem;">
+        <div style="width: 350px; margin-left: auto; margin-right: auto; padding: 30px">
+       {% block content %}
+
+       {% endblock %}
+        </div>
+      </div>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{% static "distrib/js/bootstrap.min.js" %}"></script>
+    {% block extra_js %}
+
+    {% endblock %}
+  </body>
+</html>
