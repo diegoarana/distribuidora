@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 
 from .models.client import Client
+from distrib.forms import SaleVisitForm
 
 from .serializers.client import ClientSerializer
 
@@ -55,3 +56,17 @@ def client(request):
 def client_detail(request, id):
 	client = get_object_or_404(Client, id=id)
 	return render(request, 'distrib/client_detail.html', {'client':client})
+
+def sale_visit(request, id):
+	client = get_object_or_404(Client, id=id)
+	if request.method == 'POST':
+		form = SaleVisitForm(request.POST)
+		if form.is_valid():
+			sale = form.save(commit=False)
+			sale.distributor = request.user
+			sale.client = client
+			sale.save();
+			return redirect('inicio_distribuidor')
+	else:
+		form = SaleVisitForm()
+	return render(request, 'distrib/sale_visit.html', {'form':form, 'client':client})

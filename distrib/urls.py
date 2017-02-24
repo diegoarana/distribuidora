@@ -23,6 +23,7 @@ urlpatterns = [
 		url(r'^inicio/$', views.inicio_distribuidor, name='inicio_distribuidor'),
 		url(r'^client/$', views.client),
 		url(r'^client/(?P<id>[0-9]+)/$', views.client_detail, name='client_detail'),
+		url(r'^client/(?P<id>[0-9]+)/sale/$', views.sale_visit, name='sale_visit'),
 		#url(r'^products/(?P<pk>[0-9]+)$', views.product_detail),
 
 ]
