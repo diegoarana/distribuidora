@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #my apps
     'distrib.apps.DistribConfig',
     #third apps
+    'crispy_forms',
     'rest_framework',
     'corsheaders',
 ]
@@ -136,3 +137,5 @@ STATICFILES_DIRS = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

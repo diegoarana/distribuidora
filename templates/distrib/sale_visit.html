@@ -1,19 +1,34 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block extra_head %}
+<script type="text/javascript" src="{% static "distrib/js/jquery-3.1.1.min.js" %}"></script>
+
+{% endblock %}
 
 {% block content %}
-
 <form action="" method="post">{% csrf_token %}
-		{% for field in form %}
-		<div class="field_container col-md-6 " >
-		{{field.errors}}
-		{{field.label_tag}} <br>
-		{{field}}<br><br>
-		</div>
-		{% endfor %}
-		<br>
-		<div class="col-md-5" id="">
-		<input type="submit" value="Registrar venta" class="btn btn-primary">
-		</div>
-	</form>
+<div style="position: relative;">
+{% for p in products %}
+<label><input type="checkbox" class="chk">{{p}}</label>
+<input class="inp-dis" type="number" min="0" max="99" style="width:60px;height:32px; position: absolute; right: 5px; ">
+ <br>
+{% endfor %}
+</div>
+	
+	{{ form|crispy }}
+
+	<br>
+	<input type="submit" value="Registrar venta" class="btn btn-success btn-block">
+	</div>
+</form>
+
+<script type="text/javascript">
+$('.checkboxinput').change(function() {
+    $('.chk').attr('disabled', !this.checked);
+    $('.inp-dis').attr('disabled', !this.checked);
+});
+</script>
 
 {% endblock %}

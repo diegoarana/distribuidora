@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 
 from .models.client import Client
+from .models.product import Product
+
 from distrib.forms import SaleVisitForm
 
 from .serializers.client import ClientSerializer
@@ -59,6 +61,7 @@ def client_detail(request, id):
 
 def sale_visit(request, id):
 	client = get_object_or_404(Client, id=id)
+	products = Product.objects.all()
 	if request.method == 'POST':
 		form = SaleVisitForm(request.POST)
 		if form.is_valid():
@@ -69,4 +72,4 @@ def sale_visit(request, id):
 			return redirect('inicio_distribuidor')
 	else:
 		form = SaleVisitForm()
-	return render(request, 'distrib/sale_visit.html', {'form':form, 'client':client})
+	return render(request, 'distrib/sale_visit.html', {'client':client, 'form':form, 'products':products})
