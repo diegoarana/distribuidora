@@ -8,3 +8,6 @@ class Product(models.Model):
 
 	def __str__(self):
 		return '%s - $ %s' % (self.name, self.price)
+
+	def get_price(self):
+		return self.price

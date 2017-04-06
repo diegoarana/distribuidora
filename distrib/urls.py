@@ -1,4 +1,4 @@
-"""playa URL Configuration
+"""
 
 The `urlpatterns` list routes URLs to views. For more information please see:
 		https://docs.djangoproject.com/en/1.10/topics/http/urls/
@@ -19,7 +19,6 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-		url(r'^$', views.homepage, name='homepage'),
 		url(r'^inicio/$', views.inicio_distribuidor, name='inicio_distribuidor'),
 		url(r'^client/$', views.client),
 		url(r'^client/(?P<id>[0-9]+)/$', views.client_detail, name='client_detail'),

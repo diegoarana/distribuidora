@@ -3,8 +3,10 @@ from django.db.models import Q
 
 from .models.client import Client
 from .models.product import Product
+from .models.borrowed import Borrowed
 
 from distrib.forms import SaleVisitForm
+from distrib.forms import SaleItemForm
 
 from .serializers.client import ClientSerializer
 
@@ -18,9 +20,6 @@ from django.http import HttpResponse
 
 
 # Create your views here.
-
-def homepage(request):
-	return render(request, 'index.html')
 
 def inicio_distribuidor(request):
 	return render(request, 'distrib/inicio_distribuidor.html')
@@ -57,19 +56,73 @@ def client(request):
 
 def client_detail(request, id):
 	client = get_object_or_404(Client, id=id)
-	return render(request, 'distrib/client_detail.html', {'client':client})
+	borrow = client.get_borrowed()
+	print(borrow)
+	return render(request, 'distrib/client_detail.html', {'client':client, 'borrow':borrow})
 
 def sale_visit(request, id):
 	client = get_object_or_404(Client, id=id)
 	products = Product.objects.all()
 	if request.method == 'POST':
+		#Inicializo los formularios de cada item
+		formItem1 = SaleItemForm(request.POST or None, prefix="item1")
+		formItem2 = SaleItemForm(request.POST or None, prefix="item2")
+		formItem3 = SaleItemForm(request.POST or None, prefix="item3")
+		formItem4 = SaleItemForm(request.POST or None, prefix="item4")
+
 		form = SaleVisitForm(request.POST)
+
 		if form.is_valid():
 			sale = form.save(commit=False)
-			sale.distributor = request.user
+			sale.distributor = request.user.usuario
 			sale.client = client
-			sale.save();
+			sale.save()
+
+			succes = request.POST.get('succes', False)
+			if succes == "on":
+
+				item1 = formItem1.save(commit=False)
+				item2 = formItem2.save(commit=False)
+				item3 = formItem3.save(commit=False)
+				item4 = formItem4.save(commit=False)
+				# agarro los valores de los checkbox y los productos para verificar
+				it1 = request.POST.get('item1-item', False)
+				it2 = request.POST.get('item2-item', False)
+				it3 = request.POST.get('item3-item', False)
+				it4 = request.POST.get('item4-item', False)
+				prod1 = request.POST.get('item1-product')
+				prod2 = request.POST.get('item2-product')
+				prod3 = request.POST.get('item3-product')
+				prod4 = request.POST.get('item4-product')
+				
+				if it1 == "on":
+					if prod1:
+						item1.sale = sale
+						item1.save()
+				if it2 == "on":
+					if prod2:
+						item2.sale = sale
+						item2.save()
+				if it3 == "on":
+					if prod3:
+						item3.sale = sale
+						item3.save()
+				if it4 == "on":
+					if prod4:
+						item4.sale = sale
+						item4.save()
+
+				sale.total_amount = sale.calculate_total()
+				sale.save()
+				# funcion que asigna envases prestados al cliente dependiendo de la venta
+				sale.borrow_products()
+
 			return redirect('inicio_distribuidor')
 	else:
 		form = SaleVisitForm()
-	return render(request, 'distrib/sale_visit.html', {'client':client, 'form':form, 'products':products})
+		formItem1 = SaleItemForm(prefix="item1")
+		formItem2 = SaleItemForm(prefix="item2")
+		formItem3 = SaleItemForm(prefix="item3")
+		formItem4 = SaleItemForm(prefix="item4")
+
+	return render(request, 'distrib/sale_visit.html', {'client':client, 'form':form, 'formItem1':formItem1,'formItem2':formItem2,'formItem3':formItem3, 'formItem4':formItem4, 'products':products})

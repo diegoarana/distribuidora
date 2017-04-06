@@ -35,18 +35,20 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Marcucci</a>
+          <a class="navbar-brand" href="">Marcucci</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Buscar</a></li>
-            <li><a href="#about">Stock</a></li>
-            <li><a href="#contact">Contacto</a></li>
+            <li class="active"><a href="{% url "inicio_distribuidor" %}">Buscar cliente</a></li>
+            <li><a href="">Stock</a></li>
+            <li><a href="">Contacto</a></li>
           </ul>
+          {% if user.is_authenticated %}
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="">Default</a></li>
-            <li><a href="">Static top</a></li>
+            <li> <div style="margin-top: 15px;"><span><b>Bienvenido! {{user.username}}</b></span></div> </li>
+            <li><a href="{% url "logout_page" %}">Cerrar sesión</a></li>
           </ul>
+          {% endif %}
         </div><!--/.nav-collapse -->
       </div>
     </nav>

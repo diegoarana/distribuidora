@@ -14,6 +14,13 @@ class Client(models.Model):
 	def __str__(self):
 		return self.name
 
+	def get_borrowed(self):
+		try:
+			b = self.borrowed_set.all()
+		except:
+			pass
+		return b
+
 	def get_name(self):
 		return self.name
 

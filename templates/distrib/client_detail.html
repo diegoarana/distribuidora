@@ -6,6 +6,15 @@
 <h3>DNI: {{client.dni}}</h3>
 <h3>Dirección: {{client.address}}</h3>
 <h3>Telefono: {{client.phone}}</h3>
+<h3>ENVASES PRESTADOS:</h3>
+{% if borrow %}
+	{% for b in borrow %}
+		<li><h4><b>{{b.product.name}}</b></h4></li>
+	{% endfor %}
+	{% else %}
+	<b>No tiene envases prestados</b>
+{% endif %}
+<h3></h3>
 <br>
 
 <a href="{% url "sale_visit" client.id %}"><button type="submit" class="btn btn-default btn-block">Vender</button></a>

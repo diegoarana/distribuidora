@@ -7,6 +7,7 @@ from .models.sale_visit import Sale_visit
 from .models.visit import Visit
 from .models.zone import Zone
 from .models.camion import Camion
+from .models.borrowed import Borrowed
 
 # Register your models here.
 
@@ -18,3 +19,4 @@ admin.site.register(Sale_visit)
 admin.site.register(Visit)
 admin.site.register(Zone)
 admin.site.register(Camion)
+admin.site.register(Borrowed)
