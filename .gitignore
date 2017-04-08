@@ -4,3 +4,4 @@ superuser
 *.pyc
 staticfiles
 distrib/migrations/
+static/distrib/font-awesome-4.7.0
