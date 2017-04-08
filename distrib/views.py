@@ -4,6 +4,7 @@ from django.db.models import Q
 from .models.client import Client
 from .models.product import Product
 from .models.borrowed import Borrowed
+from .models.profile import Profile
 
 from distrib.forms import SaleVisitForm
 from distrib.forms import SaleItemForm
@@ -22,7 +23,10 @@ from django.http import HttpResponse
 # Create your views here.
 
 def inicio_distribuidor(request):
-	return render(request, 'distrib/inicio_distribuidor.html')
+	if request.user.usuario.user_type == 1:
+		return render(request, 'distrib/inicio_distribuidor.html')
+	else:
+		return render(request, 'admin/inicio_admin.html')
 
 @api_view(['GET'])
 def client(request):
@@ -57,8 +61,19 @@ def client(request):
 def client_detail(request, id):
 	client = get_object_or_404(Client, id=id)
 	borrow = client.get_borrowed()
-	print(borrow)
 	return render(request, 'distrib/client_detail.html', {'client':client, 'borrow':borrow})
+
+def detail_borrowed(request, id):
+	client = get_object_or_404(Client, id=id)
+	borrow = client.get_borrowed()
+	return render(request, 'distrib/detail_borrowed.html', {'borrow':borrow, 'client':client})
+
+def delete_borrowed(request, id_borrow):
+	b = get_object_or_404(Borrowed, id=id_borrow)
+	b.delete()
+	previous_page = request.META['HTTP_REFERER']
+	return redirect(previous_page)
+
 
 def sale_visit(request, id):
 	client = get_object_or_404(Client, id=id)
@@ -126,3 +141,5 @@ def sale_visit(request, id):
 		formItem4 = SaleItemForm(prefix="item4")
 
 	return render(request, 'distrib/sale_visit.html', {'client':client, 'form':form, 'formItem1':formItem1,'formItem2':formItem2,'formItem3':formItem3, 'formItem4':formItem4, 'products':products})
+
+

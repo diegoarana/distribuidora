@@ -14,7 +14,7 @@ class BaseProfile(models.Model):
 	surname = models.CharField(max_length=30, blank=True, null=True)
 
 	def __str__(self):
-		return "{} : {:.20}". format(self.user, self.user_type or "")
+		return "{} : {}". format(self.user, self.user_type or "")
 
 	def get_name(self):
 		return self.name

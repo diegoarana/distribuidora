@@ -23,6 +23,8 @@ urlpatterns = [
 		url(r'^client/$', views.client),
 		url(r'^client/(?P<id>[0-9]+)/$', views.client_detail, name='client_detail'),
 		url(r'^client/(?P<id>[0-9]+)/sale/$', views.sale_visit, name='sale_visit'),
+		url(r'^client/(?P<id>[0-9]+)/detail_borrowed/$', views.detail_borrowed, name="detail_borrowed"),
+		url(r'^delete_borrowed/(?P<id_borrow>[0-9]+)/$', views.delete_borrowed, name='delete_borrowed'),
 		#url(r'^products/(?P<pk>[0-9]+)$', views.product_detail),
 
 ]

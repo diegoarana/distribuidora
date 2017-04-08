@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_head %}
+<script type="text/javascript" src="{% static "distrib/js/jquery-3.1.1.min.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+
+
+{% if borrow %}
+
+	<h3>Envases prestados a {{client.name}} {{client.surname}}</h3>    
+	<br>	
+	<br>
+
+	<table calss="table table-condensed table-hover">
+		<thead>
+			<tr>
+			<th>Producto</th>
+			<th>Fecha</th>
+			<th>Eliminar</th>
+			</tr>
+		</thead>
+		<tbody>
+		
+		{% for b in borrow %}
+			<tr>
+
+			<td><b>{{b.product.name}}</b></td>
+
+			<td><span style="padding: 7px">{{b.date|date:"F j, Y"}}</span></td>
+
+			<td>
+	
+			<button class="btn btn-lg btn-default" data-target="#{{b.id}}modal" data-toggle="modal"><span class="glyphicon glyphicon-remove-circle" style="color: red;"></span></button>
+			</td>
+
+			</tr>
+
+		<div id="{{b.id}}modal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">¿Esta seguro que desea eliminar el siguiente elemento?</h4>
+		      </div>
+		      <div class="modal-body">
+		      <span> <b>{{b.product.name}}</b></span>
+		      </div>
+		      <div class="modal-footer">
+		        <a  type="button" href="{% url "delete_borrowed" b.id %}" class="btn btn-success">Si, confirmar</a>
+		        <button type="button" class="btn btn-danger" data-dismiss="modal">No, cancelar</button>
+		      </div>
+		    </div>
+
+		  </div>
+		  </div>
+		{% endfor %}
+
+		</tbody>
+	</table>
+
+	{% else %}
+	<b>No tiene envases prestados</b>
+
+{% endif %}
+
+
+
+{% endblock %}
