@@ -40,12 +40,13 @@
           <a class="navbar-brand" href="">Marcucci</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+        {% if user.is_authenticated %}
           <ul class="nav navbar-nav">
             <li class="active"><a href="{% url "inicio_distribuidor" %}">Buscar cliente</a></li>
             <li><a href="">Stock</a></li>
             <li><a href="">Contacto</a></li>
           </ul>
-          {% if user.is_authenticated %}
+         
           <ul class="nav navbar-nav navbar-right">
             <li> <div style="margin-top: 15px;"><span><b>Bienvenido! {{user.username}}</b></span></div> </li>
             <li><a href="{% url "logout_page" %}">Cerrar sesión</a></li>

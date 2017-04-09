@@ -19,7 +19,8 @@ from . import views as marcucci
 
 urlpatterns = [
 	url(r'^', include('distrib.urls')),
-	url(r'^$', marcucci.homepage, name='homepage'),
+    url(r'^', include('administrator.urls')),
+	url(r'^$', marcucci.index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', marcucci.login_page, name='login_page'),
     url(r'^logout/$', marcucci.logout_page, name='logout_page'),

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #my apps
     'distrib.apps.DistribConfig',
+    'administrator.apps.AdministratorConfig',
     #third apps
     'crispy_forms',
     'rest_framework',

@@ -22,11 +22,8 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-def inicio_distribuidor(request):
-	if request.user.usuario.user_type == 1:
-		return render(request, 'distrib/inicio_distribuidor.html')
-	else:
-		return render(request, 'admin/inicio_admin.html')
+def index_distrib(request):
+	return render(request, 'distrib/inicio_distribuidor.html')
 
 @api_view(['GET'])
 def client(request):

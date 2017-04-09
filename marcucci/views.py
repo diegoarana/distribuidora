@@ -7,8 +7,11 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 
 @login_required
-def homepage(request):
-	return render(request, 'distrib/inicio_distribuidor.html')
+def index(request):
+	if request.user.usuario.user_type == 1:
+		return redirect('inicio_distribuidor')
+	else:
+		return redirect('inicio_administrador')
 
 def login_page(request):
 	message = None
@@ -22,7 +25,7 @@ def login_page(request):
 				if user.is_active:
 					login(request, user)
 					message = "Te has logueado correctamente"
-					return redirect('inicio_distribuidor')
+					return redirect('index')
 				else:
 					message = "Tu usuario esta inactivo"
 			else:

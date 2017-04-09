@@ -10,7 +10,7 @@ class Sale_visit(models.Model):
 	client = models.ForeignKey(Client, on_delete=models.CASCADE)
 	succes = models.BooleanField("Hay gente en el domicilio?", default=True)
 	date = models.DateTimeField(auto_now_add=True)
-	total_amount = models.DecimalField(max_digits = 8, decimal_places = 2, blank = True, null = True)
+	total_amount = models.PositiveSmallIntegerField(validators=[MaxValueValidator(999)], blank = True, null = True)
 	comment = models.TextField(blank=True, max_length=100)
 
 	def __str__(self):
