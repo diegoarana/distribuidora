@@ -1,0 +1,40 @@
+{% extends "base_admin.html" %}
+{% load staticfiles %}
+
+{% block hover-s %}active{% endblock %}
+
+{% block content %}
+
+<div class="panel panel-info">
+	<div class="panel-heading">
+		Historial de ventas
+	</div>
+	<div class="panel-body">
+		
+	<table class="table table-hover">
+		<thead>
+			<tr>
+			<th>Distribuidor</th>
+			<th>Cliente</th>
+			<th>Fecha</th>
+			<th>Monto total</th>
+			<th>Notas</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for s in sales %}
+			<tr>
+				<td>{{s.distributor.name}}</td>
+				<td>{{s.client.name}}<br>{{s.client.surname}}</td>
+				<td>{{s.date}}</td>
+				<td>$ {{s.total_amount}}</td>
+				<td>{{s.comment}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	</div>
+</div>
+
+{% endblock %}

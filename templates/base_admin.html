@@ -15,6 +15,8 @@
     {% block extra_head %}
     {% endblock %}
 
+     <script type="text/javascript" src="{% static "distrib/js/jquery-3.1.1.min.js" %}"></script> 
+
     <!-- Bootstrap core CSS -->
     <link href="{% static "distrib/css/bootstrap.min.css" %}" rel="stylesheet">
 
@@ -41,9 +43,35 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url "inicio_distribuidor" %}">Buscar cliente</a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
+
+            <li class="dropdown {% block hover-c %}{% endblock %}">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Clientes <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url "inicio_administrador" %}">Buscar cliente</a></li>
+                <li><a href="{% url "new_client" %}">Nuevo cliente</a></li>
+              </ul>
+            </li> 
+
+            <li class="dropdown {% block hover-d %}{% endblock %}">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Distribuidores <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url "distrib_list" %}">Lista distribuidores</a></li>
+                <li><a href="{% url "new_distrib" %}">Nuevo distribuidor</a></li>
+              </ul>
+            </li> 
+
+            <li class="{% block hover-s %}{% endblock %}"><a href="{% url "sales" %}">Ventas</a></li>
+            <li class="{% block hover-v %}{% endblock %}"><a href="{% url "visits" %}">Visitas</a></li>
+
+
+            <li class="dropdown {% block hover-p %}{% endblock %}">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Productos <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url "products" %}">Lista de productos</a></li>
+                <li><a href="{% url "new_product" %}">Nuevo producto</a></li>
+              </ul>
+            </li> 
+
           </ul>
           {% if user.is_authenticated %}
           <ul class="nav navbar-nav navbar-right">
@@ -58,7 +86,7 @@
     <div class="container" >
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron" style="margin: 1rem; padding: 1rem;">
-        <div style="width: 600px; margin-left: auto; margin-right: auto; padding: 30px">
+        <div style="width: 800px; margin-left: auto; margin-right: auto; padding: 30px; text-align: center;">
        {% block content %}
 
        {% endblock %}

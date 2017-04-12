@@ -40,7 +40,7 @@
         source: function(req, add){
           var search=$("#tags5").val();
           $.ajax({
-            url:'http://localhost:8000/client/',
+            url:'{% url "client_search" %}',
             async:true,
             dataType:'json',
             type:'GET',
@@ -67,7 +67,8 @@
       $( "#tags5" ).autocomplete({
       select: function( event, ui ) {
         id = ui.item.id;
-        url = 'http://localhost:8000/client/'+id;
+        url = '{% url "client_search" %}'+id;
+        //url = 'http://localhost:8000/index_distrib/client/'+id;
         document.location.href = url;
       }
       

@@ -3,8 +3,8 @@ from django.core.validators import MaxValueValidator
 from django.db import models
 
 class Product(models.Model):
-	name = models.CharField(max_length=30, blank=True, null=True)
-	price = models.PositiveSmallIntegerField(validators=[MaxValueValidator(999)], blank = True, null = True)
+	name = models.CharField(max_length=30, blank=False, null=False)
+	price = models.PositiveSmallIntegerField(validators=[MaxValueValidator(999)], blank = False, null = False)
 	description = models.TextField(max_length=200, blank=True, null=True)
 
 	def __str__(self):

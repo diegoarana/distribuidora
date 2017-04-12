@@ -1,0 +1,7 @@
+<div id='block-list-client'>
+    <div class="list-group">
+        {% for client in client_list %}
+            <a class="list-group-item list-group-item-action " href="{% url 'client_detail_a' client.id %}"><i class="fa fa-edit"></i>  {{ client.name }} <strong>{{client.surname}}</strong> - {{ client.dni }}</a>
+        {% endfor %}
+    </div>
+</div>

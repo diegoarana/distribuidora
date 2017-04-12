@@ -6,11 +6,5 @@ class DistributorProfile(models.Model):
 	address = models.CharField(blank=True, null=True, max_length=30)
 	phone = models.BigIntegerField(help_text="(Solamente dígitos)", validators=[MaxValueValidator(999999999999999)], blank = True, null = True)
 
-	def get_address(self):
-		return self.address
-
-	def get_phone(self):
-		return self.phone
-
 	class Meta:
 		abstract = True

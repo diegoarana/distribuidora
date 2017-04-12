@@ -1,16 +1,22 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
 {% load staticfiles %}
 
 {% block extra_head %}
 <script type="text/javascript" src="{% static "distrib/js/jquery-3.1.1.min.js" %}"></script>
 {% endblock %}
 
+{% block hover-c %}active{% endblock %}
+
 {% block content %}
 
 
 {% if borrow %}
-
-	<h3>Envases prestados a <b>{{client.name}} {{client.surname}}</b></h3>    
+<div class="panel panel-info">
+	<div class="panel-heading">
+	Envases prestados a <b>{{client.name}} {{client.surname}}</b>
+	</div>
+	 
+	<div class="panel-body">  
 	<br>	
 
 	<table class="table table-hover">
@@ -62,13 +68,12 @@
 		</tbody>
 		
 	</table>
+	</div>
+</div>
 
-
-	{% else %}
+{% else %}
 	<b>No tiene envases prestados</b>
 
 {% endif %}
-
-
 
 {% endblock %}

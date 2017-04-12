@@ -1,0 +1,36 @@
+{% extends "base_admin.html" %}
+{% block hover-v %}active{% endblock %}
+
+{% block content %}
+
+<div class="panel panel-info">
+	<div class="panel-heading">
+		Historial de visitas
+	</div>
+	<div class="panel-body">
+		
+	<table class="table table-hover">
+		<thead>
+			<tr>
+			<th>Distribuidor</th>
+			<th>Cliente</th>
+			<th>Fecha</th>
+			<th>Notas</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for v in visits %}
+			<tr>
+				<td>{{v.distributor.name}}</td>
+				<td>{{v.client.name}}<br>{{v.client.surname}}</td>
+				<td>{{v.date}}</td>
+				<td>{{v.comment}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	</div>
+</div>
+
+{% endblock %}

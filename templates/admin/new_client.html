@@ -1,0 +1,21 @@
+{% extends "base_admin.html" %}
+{% load crispy_forms_tags %}
+{% block hover-c %}active{% endblock %}
+
+{% block content %}
+<h2>Registrar cliente nuevo</h2>
+<br>
+
+<div class="row">
+<div class="col-md-5" style="margin-left: 210px; ">
+<form method="POST">{% csrf_token %}
+	
+	{{ form|crispy }}
+	
+	<input type="submit" name="" value="Registrar" class="btn btn-info btn-lg" >
+</form>
+</div>
+</div>
+
+
+{% endblock %}

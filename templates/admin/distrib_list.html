@@ -1,0 +1,40 @@
+{% extends "base_admin.html" %}
+{% block hover-d %}active{% endblock %}
+
+{% block content %}
+
+<div class="panel panel-info">
+	<div class="panel-heading">
+		Lista de distribuidores
+	</div>
+	<div class="panel-body">
+		
+	<table class="table table-hover">
+		<thead>
+			<tr>
+			<th>Usuario</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>dirección</th>
+			<th>Teléfono</th>
+			<th>Editar</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for d in distrib %}
+			<tr>
+				<td>{{d.user.username}}</td>
+				<td>{{d.name}}</td>
+				<td>{{d.surname}}</td>
+				<td>{{d.address}}</td>
+				<td>{{d.phone}}</td>
+				<td><a href="{% url "distrib_edit" d.user_id %}"><span style="color: #1E90FF; font-size: 18px" class="glyphicon glyphicon-pencil"></span></a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	</div>
+</div>
+
+{% endblock %}

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #my apps
     'distrib.apps.DistribConfig',
     'administrator.apps.AdministratorConfig',
+    'bloque.apps.BloqueConfig',
     #third apps
     'crispy_forms',
     'rest_framework',

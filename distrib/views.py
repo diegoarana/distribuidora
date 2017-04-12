@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 from .models.client import Client
 from .models.product import Product
@@ -19,9 +20,8 @@ from rest_framework import status
 import json
 from django.http import HttpResponse
 
-
 # Create your views here.
-
+@login_required
 def index_distrib(request):
 	return render(request, 'distrib/inicio_distribuidor.html')
 
@@ -55,23 +55,26 @@ def client(request):
 	#serializer = ClientSerializer(client, many=True)
 	#return Response(serializer.data)
 
+@login_required
 def client_detail(request, id):
 	client = get_object_or_404(Client, id=id)
 	borrow = client.get_borrowed()
 	return render(request, 'distrib/client_detail.html', {'client':client, 'borrow':borrow})
 
+@login_required
 def detail_borrowed(request, id):
 	client = get_object_or_404(Client, id=id)
 	borrow = client.get_borrowed()
 	return render(request, 'distrib/detail_borrowed.html', {'borrow':borrow, 'client':client})
-
+	
+@login_required
 def delete_borrowed(request, id_borrow):
 	b = get_object_or_404(Borrowed, id=id_borrow)
 	b.delete()
 	previous_page = request.META['HTTP_REFERER']
 	return redirect(previous_page)
 
-
+@login_required
 def sale_visit(request, id):
 	client = get_object_or_404(Client, id=id)
 	products = Product.objects.all()

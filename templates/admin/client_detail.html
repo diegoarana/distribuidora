@@ -1,0 +1,52 @@
+{% extends "base_admin.html" %}
+{% block hover-c %}active{% endblock %}
+
+{% block content %}
+
+<h3>Nombre: {{client.name}} {{client.surname}}</h3>
+<h3>DNI: {{client.dni}}</h3>
+<h3>Dirección: {{client.address}}</h3>
+<h3>Telefono: {{client.phone}}</h3>
+
+<br>
+
+<a href="{% url "client_sales" client.id %}"><button class="btn btn-default btn-lg"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Historial de ventas</button></a>
+<br>
+<br>
+<a href="{% url "client_visits" client.id %}"><button class="btn btn-default btn-lg"><i class="fa fa-eye" aria-hidden="true"></i> Historial de visitas</button></a>
+<br>
+<br>
+<a href=""><button class="btn btn-default btn-lg"><i class="fa fa-money" aria-hidden="true"></i> Historial de pagos</button></a>
+<br>
+<br>
+<a href="{% url "client_borrowed" client.id %}"><button class="btn btn-default btn-lg"><i class="fa fa-glass" aria-hidden="true"></i> Envases prestados</button></a>
+<br>
+<br>
+<a href="#modal" data-toggle="modal"><button class="btn btn-danger btn-lg"><i class="fa fa-trash-o " aria-hidden="true"></i> Eliminar cliente</button></a>
+
+<!-- Modal -->
+<div id="modal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">¿Esta seguro que desea continuar?</h4>
+				      </div>
+				      <div class="modal-body">
+				      <span><p>Se eliminará el cliente</p>
+				      		<p><b>{{client.name}} {{client.surname}}</b> con DNI: <b>{{client.dni}}</p>
+				      		<p> y toda la información relacionada(ventas, visitas, etc)</p>
+				      </span>
+				      </div>
+				      <div class="modal-footer">
+				        <a  type="button" href="{% url "client_delete" client.id %}" class="btn btn-success">Si, confirmar</a>
+				        <button type="button" class="btn btn-danger" data-dismiss="modal">No, cancelar</button>
+				      </div>
+				    </div>
+
+				</div>
+		  </div>
+
+{% endblock %}

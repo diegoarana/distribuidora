@@ -2,68 +2,49 @@
 {% load staticfiles %}
 
 {% block extra_head %}
- <script type="text/javascript" src="{% static "distrib/js/jquery-3.1.1.min.js" %}"></script>
-  
- <script src="{% static "distrib/js/jquery-ui.js" %}"></script>
-   
- <link rel="stylesheet" href="{% static "distrib/css/jquery-ui.css" %}">
-
+ <script type="text/javascript" src="{% static "distrib/js/jquery-3.1.1.min.js" %}"></script> 
 {% endblock %}
 
-{% block content %}
-<div class="ui-widget">
-    <label for="tags5">Cliente o razón social: </label>
-    <input class="form-control" id="tags5" placeholder="Apellido o DNI">
+{% block hover-c %}active{% endblock %}
+
+{%block content%}
+
+<div class="row">
+    <form name='filter'  method="get">
+                <div>
+                    <span>
+                        Filtrar por apellido o DNI:
+                    </span>
+                    
+                   <input id='filter_client' type="text" name="filter">
+                </div>
+    </form>
+    <br>
+    <div id='block-list-client' class="col-md-7" style="margin-left: 150px; ">
+        <div class="list-group">
+            {% for client in client_list %}
+            <a class="list-group-item list-group-item-action " href="{% url 'client_detail_a' client.id %}"><i class="fa fa-edit"></i>  {{ client.name }} <strong>{{client.surname}}</strong> - {{ client.dni }}</a>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
-{% endblock %}
+{%endblock%}
 
 {% block extra_js %}
 
 <script type="text/javascript">
+ $(function() {
+      // navigate to page on click event
 
-    $(function(){
- 
-      $("#tags5").autocomplete({
-        minLength:3,
-        source: function(req, add){
-          var search=$("#tags5").val();
-          $.ajax({
-            url:'http://localhost:8000/client/',
-            async:true,
-            dataType:'json',
-            type:'GET',
-            data:{ 'q': search,},
-            success: function(data){
-              var suggestions=[];
-
-              $.each(data, function(index, objeto){
-                suggestions.push(objeto); 
-              });
-
-              add(suggestions);
-
-              
-            },
-            error:function(err){
-              alert("error");
-            }
-          });
-        }
-
-      });
-
-      $( "#tags5" ).autocomplete({
-      select: function( event, ui ) {
-        id = ui.item.id;
-        url = 'http://localhost:8000/client/'+id;
-        document.location.href = url;
-      }
-      
-        });
-
+    $('#filter_client').on('input', function() {
+          var baseUrl = '/bloque/buscar_cliente/';
+          $( "#block-list-client" ).load(baseUrl + '?filter=' + $('#filter_client')[0].value);
+        
+    console.log(baseUrl + '?filter=' + $('#filter_client')[0].value)
+        
     });
+ });
+</script>
 
-    </script>
-
-{% endblock %}
+{%endblock%}

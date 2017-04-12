@@ -16,6 +16,9 @@ class Sale_visit(models.Model):
 	def __str__(self):
 		return '%s - %s' % (self.distributor.name, self.client)
 
+	class Meta:
+		ordering = ['-date']
+
 	def get_date(self):
 		return self.date
 

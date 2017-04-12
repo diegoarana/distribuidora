@@ -6,11 +6,11 @@ from .debt import Debt
 
 class Client(models.Model):
 	administrator = models.ForeignKey(Profile, on_delete=models.CASCADE)
-	name = models.CharField(max_length=30, blank=True, null=True)
-	surname = models.CharField(max_length=30, blank=True, null=True)
-	dni = models.PositiveIntegerField(help_text="(Solamente dígitos)", validators=[MaxValueValidator(99999999)], blank = True, null = True)
-	phone = models.PositiveIntegerField(help_text="(Solamente dígitos)", validators=[MaxValueValidator(999999999999999)], blank = True, null = True)
-	address = models.CharField(blank=True, null=True, max_length=30)
+	name = models.CharField(max_length=30, blank=False, null=False,)
+	surname = models.CharField(max_length=30, blank=False, null=False,)
+	dni = models.PositiveIntegerField(help_text="(Solamente dígitos)", validators=[MaxValueValidator(99999999)], blank=False, null=False,)
+	phone = models.PositiveIntegerField(help_text="(Solamente dígitos)", validators=[MaxValueValidator(999999999999999)], blank=False, null=False,)
+	address = models.CharField(blank=False, null=False, max_length=30)
 	debt = models.OneToOneField(Debt, on_delete=models.CASCADE, null=True)
 
 	def __str__(self):
@@ -22,6 +22,14 @@ class Client(models.Model):
 		except:
 			pass
 		return b
+
+	def get_sales(self):
+		s = self.sale_visit_set.filter(succes=True)
+		return s
+
+	def get_visits(self):
+		v = self.sale_visit_set.filter(succes=False)
+		return v
 
 	def get_name(self):
 		return self.name
