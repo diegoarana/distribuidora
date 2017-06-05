@@ -11,3 +11,5 @@ class Borrowed(models.Model):
 
 	def __str__(self):
 		return '%s - %s' % (self.client.name, self.product.name)
+		
+

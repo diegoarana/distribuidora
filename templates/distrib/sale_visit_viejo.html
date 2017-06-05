@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block extra_head %}
+<script type="text/javascript" src="{% static "distrib/js/jquery-3.1.1.min.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<form action="" id="formulario" method="post">{% csrf_token %}
+
+	<div>
+
+	<table class="table table-condensed table-hover" id="table_sail">
+		<thead> 
+             <tr>
+               	<th> <span class="glyphicon glyphicon-ok"></span></th>
+                <th>Producto</th>
+				<th>Cantidad</th>
+			</tr>
+		</thead>
+		<tbody> 
+			
+			{{ formItem.non_field_errors }}
+			<tr>
+			<td>
+  				{{ formItem1.item.errors }}
+    			{{ formItem1.item }}
+    		</td>
+    		<td>
+    			{{ formItem1.product.errors }}
+    			{{ formItem1.product }}
+    		</td>
+    		<td>	
+    			{{ formItem1.quantity.errors }}
+    			{{ formItem1.quantity }}
+    		</td>
+			</tr>
+
+			<tr>
+			<td>			
+  				{{ formItem2.item.errors }}
+    			{{ formItem2.item }}
+    		</td>
+    		<td>	
+    			{{ formItem2.product.errors }}
+    			{{ formItem2.product }}
+    		</td>
+    		<td>	
+    			{{ formItem2.quantity.errors }}
+    			{{ formItem2.quantity }}
+			</td>
+			</tr>
+
+			<tr>
+			<td>
+    			{{ formItem3.item.errors }}
+    			{{ formItem3.item }}
+    		</td>
+    		<td>
+    			{{ formItem3.product.errors }}
+    			{{ formItem3.product }}
+    		</td>
+    		<td>
+				{{ formItem3.quantity.errors }}
+    			{{ formItem3.quantity }}
+			</td>
+			</tr>
+
+      <tr>
+      <td>
+          {{ formItem4.item.errors }}
+          {{ formItem4.item }}
+        </td>
+        <td>
+          {{ formItem4.product.errors }}
+          {{ formItem4.product }}
+        </td>
+        <td>
+        {{ formItem4.quantity.errors }}
+          {{ formItem4.quantity }}
+      </td>
+      </tr>
+		
+		</tbody>
+		
+	</table>
+
+	</div>
+	
+	{{ form|crispy }}
+
+	<br>
+  <!-- Boton que llama al modal-->
+	<button type="button" class="btn btn-success btn-block" id=registrar data-toggle="modal" data-target="#modal">Registrar venta</button>
+
+</form>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">¿Esta seguro que desea continuar?</h4>
+      </div>
+      <div class="modal-body">
+      <span id="inner"></span>
+      </div>
+      <div class="modal-footer">
+      <!-- INPUT que submit que envia el formulario-->
+        <input type="submit" class="btn btn-success" value="Si, confirmar" form="formulario">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">No, Cancelar</button>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+
+<!-- Bloquea todos los campos si no hay nadie en casa -->
+<script type="text/javascript">
+$('#id_succes').change(function() {
+    $('#id_item1-item').attr('disabled', !this.checked);
+    $('#id_item1-item').prop("checked", false);
+    $("#id_item1-quantity").val("");
+    $('#id_item2-item').attr('disabled', !this.checked);
+    $('#id_item2-item').prop("checked", false);
+    $("#id_item2-quantity").val("");
+    $('#id_item3-item').attr('disabled', !this.checked);
+    $('#id_item3-item').prop("checked", false);
+    $("#id_item3-quantity").val("");
+    $('#id_item4-item').prop("checked", false);
+    $("#id_item4-quantity").val("");
+});
+</script>
+
+<!-- desbloquea cada campo cantidad dependiendo del checkbox -->
+<script type="text/javascript">
+$('#id_item1-item').change(function() {
+    $('#id_item1-quantity').attr('disabled', !this.checked);
+    var check1 = $(this);
+    if ( !check1.is( ":checked" ) ){
+      $("#id_item1-quantity").val("");
+    }
+});
+
+$('#id_item2-item').change(function() {
+    $('#id_item2-quantity').attr('disabled', !this.checked);
+    var check2 = $(this);
+    if ( !check2.is( ":checked" ) ){
+      $("#id_item2-quantity").val("");
+    }
+});
+
+$('#id_item3-item').change(function() {
+    $('#id_item3-quantity').attr('disabled', !this.checked);
+    var check3 = $(this);
+    if ( !check3.is( ":checked" ) ){
+      $("#id_item3-quantity").val("");
+    }
+});
+
+$('#id_item4-item').change(function() {
+    $('#id_item4-quantity').attr('disabled', !this.checked);
+    var check4 = $(this);
+    if ( !check4.is( ":checked" ) ){
+      $("#id_item4-quantity").val("");
+    }
+});
+</script>
+ 
+
+<!-- agrega atributo max a los tags input de cantidad.
+ Inicializa por defecto los input cantidad disabled.
+ Agregar más lineas en caso de agregar productos -->
+<script type="text/javascript">
+	var e1 = document.getElementById("id_item1-quantity");
+	var e2 = document.getElementById("id_item2-quantity");
+	var e3 = document.getElementById("id_item3-quantity");
+  var e4 = document.getElementById("id_item4-quantity");
+	e1.setAttribute('max','99');
+	e2.setAttribute('max','99');
+	e3.setAttribute('max','99');
+  e4.setAttribute('max','99');
+	e1.disabled=true;
+	e2.disabled=true;
+	e3.disabled=true;
+  e4.disabled=true;
+</script>
+
+<script type="text/javascript">
+  // Calcula el total de la venta y lo mustra en el modal antes de registrar la venta
+  
+  $('#registrar').click(function (e) {
+
+  e.preventDefault();
+
+  var check = $('.checkboxinput');
+  var succes = $(check).is(":checked")
+  console.log(succes)
+  if(!succes){
+      $( "#inner" ).html("<h2>Registrar comentarios de visita</h2>");
+
+  }else{
+  
+  aux = 0;
+  var item1 = $('#id_item1-product');
+  var val1 = $(item1).val();
+  var item2 = $('#id_item2-product');
+  var val2 = $(item2).val();
+  var item3 = $('#id_item3-product');
+  var val3 = $(item3).val();
+  var item4 = $('#id_item4-product');
+  var val4 = $(item4).val();
+
+  var q1 = $('#id_item1-quantity');
+  var can1 = $(q1).val();
+  var q2 = $('#id_item2-quantity');
+  var can2 = $(q2).val();
+  var q3 = $('#id_item3-quantity');
+  var can3 = $(q3).val();
+  var q4 = $('#id_item4-quantity');
+  var can4 = $(q4).val();
+
+  {% for p in products %}
+  
+    if ( {{p.id}} == val1 ){
+      aux = aux + ({{p.get_price}}*can1);
+    
+    }  else if ( {{p.id}} == val2 ){
+      aux = aux + ({{p.get_price}}*can2);
+    
+    } else if ( {{p.id}} == val3 ){
+      aux = aux + ({{p.get_price}}*can3);
+
+    } else if ( {{p.id}} == val4 ){
+      aux = aux + ({{p.get_price}}*can4);
+    }
+
+
+  {% endfor %}
+  // aux es la variable con la suma total que se inserta en el modal
+  $( "#inner" ).html("<h2>Suma total de la venta <b>$"+aux+"</b></h2>");
+  }
+
+});
+
+</script>
+
+{% endblock %}
+

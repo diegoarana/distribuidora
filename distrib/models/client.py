@@ -3,6 +3,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 from .profile import Profile
 from .debt import Debt
+import collections
 
 class Client(models.Model):
 	administrator = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -22,6 +23,19 @@ class Client(models.Model):
 		except:
 			pass
 		return b
+
+	# retorna diccionario(id:cantidad) con la cantidad prestda de cada producto(id)  
+	def contarPrestados(self):
+		listaPrestados = self.borrowed_set.all()
+		listaIds=[]
+
+		for l in listaPrestados:
+			listaIds.append(l.product.name)
+
+		dic = collections.Counter(listaIds)
+		dic = dict(dic)
+		return dic
+
 
 	def get_sales(self):
 		s = self.sale_visit_set.filter(succes=True)
