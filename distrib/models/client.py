@@ -36,6 +36,24 @@ class Client(models.Model):
 		dic = dict(dic)
 		return dic
 
+	def devolver_envases(self, cantidad, nombre):
+		# Eliminar la cantidad de envases de ese nombre
+		# navegar entre relaciones desde cliente para obtener los envases de ese nombre
+		# y luego hacer .delete() la cantidad de veces
+		listaPrestados = self.borrowed_set.all()
+		seleccion = listaPrestados.filter(product__name__icontains=nombre)
+		print(cantidad)
+		print(nombre)
+		print(seleccion)
+		if cantidad > 1:
+			for i in range(cantidad-1):
+				seleccion[i].delete()
+		else:
+			seleccion[0].delete()
+
+		return None
+
+
 
 	def get_sales(self):
 		s = self.sale_visit_set.filter(succes=True)

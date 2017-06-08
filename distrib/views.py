@@ -58,14 +58,30 @@ def client(request):
 @login_required
 def client_detail(request, id):
 	client = get_object_or_404(Client, id=id)
-	products = Product.objects.all()
 	borrow = client.contarPrestados()
-	return render(request, 'distrib/client_detail.html', {'client':client, 'borrow':borrow, 'products':products})
+	return render(request, 'distrib/client_detail.html', {'client':client, 'borrow':borrow})
 
 @login_required
 def detail_borrowed(request, id):
 	client = get_object_or_404(Client, id=id)
-	borrow = client.get_borrowed()
+	borrow = client.contarPrestados()
+
+	#Si la pagina se carga por post, entonces tomo la cantidad de cada input y elimino los respectivos envases
+	if request.method == 'POST':
+
+		for key,value in borrow.items():
+
+			cantidad = request.POST[key]
+			try:
+				cantidad = int(cantidad)
+			except Exception as e:
+				cantidad = 0
+			
+			if (cantidad != 0):
+				client.devolver_envases(cantidad, key)
+
+		return redirect('client_detail', id=id)
+		
 	return render(request, 'distrib/detail_borrowed.html', {'borrow':borrow, 'client':client})
 	
 @login_required
