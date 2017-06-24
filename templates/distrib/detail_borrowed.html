@@ -10,13 +10,14 @@
 
 {% if borrow %}
 
-	<h3>Envases prestados a <b>{{client.name}} {{client.surname}}</b></h3>    
+	<h3>Envases prestados a</h3>
+	<h3><b>{{client.name}} {{client.surname}}</b></h3>    
 	<br>
 
-	<h4>Ingrese la cantidad de envases que el cliente devuelve de cada producto. En número
+	<h4 class="text-info">Ingrese la cantidad de envases que el cliente devuelve de cada producto. En número
 	 ingresado debe ser menor o igual al número de envases prestados.</h4>	
 
-	<form action="" method="post">{% csrf_token %}
+	<form action="" id="formulario" method="post">{% csrf_token %}
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -35,7 +36,7 @@
 			<td style="text-align: center;">{{value}}</td>
 
 			<td>
-				<input type="number" min="0" max="{{value}}" name="{{key}}">
+				<input type="number" min="0" max="{{value}}" name="{{key}}" id="{{key}}" value="0"> <h5 style="float:left"; class="text-muted">Máximo {{value}}</5>
 			</td>
 
 			</tr>
@@ -46,8 +47,14 @@
 		</tbody>
 		
 	</table>
-
+	<!-- boton submit del formulario 
 	<input class="btn btn-primary" type="submit" name="" value="Devolver envases">
+	-->
+
+	<!-- Boton que llama al modal-->
+	<button type="button" class="btn btn-primary" id="devolver" data-toggle="modal" data-target="#modal">Devolver envases</button>
+
+
 	</form>
 
 	{% else %}
@@ -63,13 +70,13 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">¿Esta seguro que desea eliminar el siguiente elemento?</h4>
+		        <h4 class="modal-title">¿Esta seguro que desea devolver los envases seleccionados?</h4>
 		      </div>
 		      <div class="modal-body">
-		      <span>Envase de <b></b></span>
+		      <span> <b></b></span><div id="inner"></div>
 		      </div>
 		      <div class="modal-footer">
-		        <a  type="button" href="" class="btn btn-success">Si, confirmar</a>
+		        <input type="submit" class="btn btn-success" value="Si, confirmar" form="formulario">
 		        <button type="button" class="btn btn-danger" data-dismiss="modal">No, cancelar</button>
 		      </div>
 		    </div>
@@ -77,5 +84,46 @@
 		  </div>
 		  </div>
 
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script type="text/javascript">
+
+	/* 
+	$('#devolver').click(function (e) {
+
+	var resultado = new Map();
+
+	e.preventDefault();
+
+	// Validar que la cantidad de envases ingresada sea menor a la que tiene prestado
+	// Si los valores son correctos, se muestra el modal con los datos ingresados para confirmar la devolucion
+	// si los valores son incorrectos, se muestra en el modal cual es el campo de error y solamente la opcion de cerrar el modal, no se podrá continuar
+
+	{% for key,value in borrow.items %}
+	// puede que no funcione porque algunos valores tomados sean nulos, verificar
+	if ( parseInt($('#{{key}}').val()) > {{value}} ){
+		resultado.set('{{key}}', false);
+	}else{
+		resultado.set('{{key}}', true);
+	}
+
+	{% endfor %}
+
+	valores = resultado.prototype.values();
+	// buscar que la lista contenga un false
+	a = valores.includes(false);
+
+	$( "#inner" ).html(valores);
+	console.log(valores);
+
+	// if resultado contiene algun false es proque hay campos invalidos
+	
+	});
+	*/
+
+</script>
 
 {% endblock %}

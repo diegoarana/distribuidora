@@ -22,6 +22,9 @@ class Sale_visit(models.Model):
 	def get_date(self):
 		return self.date
 
+	def get_sale_items(self):
+		return self.sale.all()
+
 	def calculate_total(self):
 		total = 0
 		try:

@@ -144,6 +144,12 @@ def sales(request):
 	return render(request, 'admin/sales.html', {'sales':sales})
 
 @login_required
+def sale_detail(request, id):
+	sale = get_object_or_404(Sale_visit, id=id)
+	itemsVenta = sale.get_sale_items()
+	return render(request, 'admin/sale_detail.html',{'itemsVenta':itemsVenta, 'sale':sale})
+
+@login_required
 def visits(request):
 	visits = Sale_visit.objects.filter(succes=False)
 	return render(request, 'admin/visits.html', {'visits':visits})

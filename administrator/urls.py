@@ -5,6 +5,7 @@ urlpatterns = [
 		url(r'^index_admin/', include([
 			url(r'^$', views.buscar_cliente, name='inicio_administrador'),
 			url(r'^sales$', views.sales, name='sales'),
+			url(r'^sale_detail/(?P<id>[0-9]+)/$', views.sale_detail, name='sale_detail'),
 			url(r'^visits$', views.visits, name='visits'),
 			url(r'^distrib$', views.distrib_list, name='distrib_list'),
 			url(r'^distrib/new$', views.new_distrib, name='new_distrib'),

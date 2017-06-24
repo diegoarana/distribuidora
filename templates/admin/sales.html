@@ -18,6 +18,7 @@
 			<th>Cliente</th>
 			<th>Fecha</th>
 			<th>Monto total</th>
+			<th>Detalles de la venta</th>
 			<th>Notas</th>
 			</tr>
 		</thead>
@@ -28,6 +29,7 @@
 				<td>{{s.client.name}}<br>{{s.client.surname}}</td>
 				<td>{{s.date}}</td>
 				<td>$ {{s.total_amount}}</td>
+				<td><a href="{% url "sale_detail" s.id %}">Detalles</a></td>
 				<td>{{s.comment}}</td>
 			</tr>
 			{% endfor %}

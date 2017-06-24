@@ -1,0 +1,42 @@
+{% extends "base_admin.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="panel panel-info">
+	<div class="panel-heading">
+		Detalle de venta realizada el <b>{{sale.date}}</b>
+	</div>
+	<div class="panel-body">
+		
+	<table class="table table-hover">
+		<thead>
+			<tr>
+			<th>Producto</th>
+			<th>Cantidad</th>
+			<th>Precio unitario</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in itemsVenta %}
+			<tr>
+				<td>{{item.product.name}}</td>
+				<td>{{item.quantity}}</td>
+				<td>$ {{item.product.price}}</td>
+			</tr>
+			{% endfor %}
+			<tr>
+			<td></td>
+			<td></td>
+			<td>
+				Monto total:<br>
+				$ {{sale.total_amount}}
+			</td>
+			</tr>
+		</tbody>
+	</table>
+
+	</div>
+</div>
+
+{% endblock %}

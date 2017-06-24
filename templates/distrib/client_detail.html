@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<h3 style="text-align: center"><b>Información del cliente</b></h3>
+<br>
 <h3>Nombre: {{client.name}} {{client.surname}}</h3>
 <h3>DNI: {{client.dni}}</h3>
 <h3>Dirección: {{client.address}}</h3>
@@ -40,7 +41,7 @@
 <br>
 <a href=""><button type="submit" class="btn btn-primary btn-block" href="">Pagar</button></a>
 <br>
-<a href="{% url "detail_borrowed" client.id %}"><button type="submit" class="btn btn-primary btn-block" href="">Envases prestados</button></a>
+<a href="{% url "detail_borrowed" client.id %}"><button type="submit" class="btn btn-primary btn-block" href="">Devolver envases</button></a>
 
 
 {% endblock %}
