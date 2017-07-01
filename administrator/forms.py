@@ -10,7 +10,7 @@ from django.contrib.auth import (
 class ClientForm(forms.ModelForm):
 	class Meta:
 		model=Client
-		fields=['name', 'surname', 'dni', 'phone']
+		fields=['name', 'surname', 'dni', 'address', 'phone']
 
 	#change the label in forms
 	def __init__(self, *args, **kwargs):
@@ -18,7 +18,8 @@ class ClientForm(forms.ModelForm):
 		self.fields['name'].label = "Nombre"
 		self.fields['surname'].label = "Apellido"
 		self.fields['dni'].label = "DNI"
-		self.fields['phone'].label = "Teléfono"
+		self.fields['address'].label = "Dirección"
+		self.fields['phone'].label = "Telefóno"        
 
 class ProfileForm(forms.ModelForm):
 	class Meta:

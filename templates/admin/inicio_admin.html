@@ -12,20 +12,22 @@
 <div class="row">
     <form name='filter'  method="get">
                 <div>
-                    <span>
+                    <h4>
                         Filtrar por apellido o DNI:
-                    </span>
+                    </h4>
                     
-                   <input id='filter_client' type="text" name="filter">
+                   <input id='filter_client' class="input-lg" type="text" name="filter">
                 </div>
     </form>
     <br>
+    <div class="container">
     <div id='block-list-client' class="col-md-7" style="margin-left: 150px; ">
         <div class="list-group">
             {% for client in client_list %}
             <a class="list-group-item list-group-item-action " href="{% url 'client_detail_a' client.id %}"><i class="fa fa-edit"></i>  {{ client.name }} <strong>{{client.surname}}</strong> - {{ client.dni }}</a>
             {% endfor %}
         </div>
+    </div>
     </div>
 </div>
 

@@ -1,19 +1,24 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% block title %} Iniciar sesión {% endblock %}
-{% block header %} Iniciar sesión {% endblock %}
+
 {% block content %}
 
 <div class="row">
-<div class="col-md-8">
+<div class="col-md-8 col-xs-6">
+<h2>Iniciar sesión</h2>
+
 {% if message %}
-	<b>{{message}}</b>
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  <b>{{message}}</b>
+</div>
 {% endif %}
 </div>
 </div>
 <br>
 <div class="row">
-<div class="col-md-8">
+<div class="col-md-8 col-xs-6">
 	<form action="" method="post">{% csrf_token %}
 		{{ form|crispy }}
 		<br>
