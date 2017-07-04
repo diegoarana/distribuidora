@@ -1,0 +1,32 @@
+{% extends "base_admin.html" %}
+{% load crispy_forms_tags %}
+{% block hover-a %}active{% endblock %}
+
+{% block content %}
+
+<div class="container" style="padding-left: 170px">
+	<div class="col-md-7">
+
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				Editar administrador
+			</div>
+			<div class="panel-body">
+				
+			<form action="" method="post">{% csrf_token %}
+				
+				{{form_profile|crispy}}
+					
+				<br>
+			
+			<input type="submit" value="Guardar" class="btn btn-primary btn-block">
+				
+			</form>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}

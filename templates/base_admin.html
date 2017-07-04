@@ -61,6 +61,7 @@
             </li> 
 
             <li class="{% block hover-s %}{% endblock %}"><a href="{% url "sales" %}">Ventas</a></li>
+
             <li class="{% block hover-v %}{% endblock %}"><a href="{% url "visits" %}">Visitas</a></li>
 
 
@@ -69,6 +70,14 @@
               <ul class="dropdown-menu">
                 <li><a href="{% url "products" %}">Lista de productos</a></li>
                 <li><a href="{% url "new_product" %}">Nuevo producto</a></li>
+              </ul>
+            </li> 
+
+            <li class="dropdown {% block hover-a %}{% endblock %}">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administradores <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url "admin_list" %}">Listar</a></li>
+                <li><a href="{% url "new_admin" %}">Nuevo administrador</a></li>
               </ul>
             </li> 
 

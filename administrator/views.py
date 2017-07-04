@@ -14,6 +14,7 @@ from distrib.models.product import Product
 #forms
 from administrator.forms import ClientForm
 from administrator.forms import ProfileForm
+from administrator.forms import AdminProfileForm
 from administrator.forms import UserCreationForm
 from administrator.forms import ProductForm
 
@@ -71,6 +72,30 @@ def new_distrib(request):
 		return redirect('index')
 
 @login_required
+def new_admin(request):
+	if request.user.usuario.is_administrator():
+		if request.method == 'POST':
+			form_user = UserCreationForm(request.POST or None)
+			form_profile = AdminProfileForm(request.POST or None)
+			if form_user.is_valid() and form_profile.is_valid():
+				user = form_user.save()
+				profile = form_profile.save(commit=False)
+				profile.user = user
+				profile.user_type = 0
+				profile.save()
+				return redirect('admin_list')
+			else:
+				# Falta crear el template new_admin.html y poner url
+				return render(request, "admin/new_admin.html", {'form_user':form_user, 'form_profile':form_profile})
+		else:
+			form_user = UserCreationForm()
+			form_profile = AdminProfileForm()
+			return render(request, "admin/new_admin.html", {'form_user':form_user, 'form_profile':form_profile})
+	else:
+		return redirect('index')
+
+
+@login_required
 def new_product(request):
 	if request.user.usuario.is_administrator():
 		if request.method == 'POST':
@@ -91,6 +116,24 @@ def distrib_list(request):
 	d = Profile.objects.all()
 	distrib = d.filter(user_type=1)
 	return render(request, 'admin/distrib_list.html', {'distrib':distrib})
+
+@login_required
+def admin_list(request):
+	a = Profile.objects.all()
+	admin = a.filter(user_type=0)
+	return render(request, 'admin/admin_list.html', {'admin':admin})
+
+@login_required
+def admin_edit(request, id):
+	a = get_object_or_404(Profile, user_id=id)
+	if request.method == "POST":
+		form_profile = ProfileForm(request.POST, instance=a)
+		if form_profile.is_valid():
+			form_profile.save()
+			return redirect('admin_list')
+	else:
+		form_profile = AdminProfileForm(instance=a)
+	return render(request, 'admin/admin_edit.html', {'form_profile':form_profile})
 
 def distrib_edit(request, id):
 	d = get_object_or_404(Profile, user_id=id)

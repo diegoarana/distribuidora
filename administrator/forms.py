@@ -33,6 +33,19 @@ class ProfileForm(forms.ModelForm):
 		self.fields['name'].label = "Nombre"
 		self.fields['surname'].label = "Apellido"
 
+class AdminProfileForm(forms.ModelForm):
+	class Meta:
+		model=Profile
+		fields=['name', 'surname', 'sector', 'address', 'phone']
+
+	def __init__(self, *args, **kwargs):
+		super(AdminProfileForm, self).__init__(*args, **kwargs)
+		self.fields['address'].label = "Dirección - Calle"
+		self.fields['phone'].label = "Teléfono"
+		self.fields['name'].label = "Nombre"
+		self.fields['surname'].label = "Apellido"
+		self.fields['sector'].label = "Sector de trabajo"
+
 class ProductForm(forms.ModelForm):
     class Meta:
         model=Product

@@ -1,0 +1,51 @@
+{% extends "base_admin.html" %}
+{% block hover-a %}active{% endblock %}
+
+{% block content %}
+
+<div class="panel panel-info">
+	<div class="panel-heading">
+		Lista de administradores
+	</div>
+	<div class="panel-body">
+		
+	<table class="table table-hover">
+		<thead>
+			<tr>
+			<th>Usuario</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Sector</th>
+			<th>dirección</th>
+			<th>Teléfono</th>
+			<th>Editar</th>
+			<th>Cambiar contraseña</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for a in admin %}
+			<tr>
+				<td>{{a.user.username}}</td>
+				<td>{{a.name}}</td>
+				<td>{{a.surname}}</td>
+				<td>{{a.sector}}</td>
+				<td>{{a.address}}</td>
+				<td>{{a.phone}}</td>
+				<td> {% if a.user.id == user.id %}
+				<a href="{% url "admin_edit" a.user_id %}"><span style="color: #1E90FF; font-size: 18px" class="glyphicon glyphicon-pencil"></span></a>
+					{%endif%}
+				</td>
+				<td> {% if a.user.id == user.id %}
+				<a href=""><span style="color: #1E90FF; font-size: 18px" class="glyphicon glyphicon-pencil"></span></a>
+					{%endif%}
+				</td>
+
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	</div>
+</div>
+
+{% endblock %}
