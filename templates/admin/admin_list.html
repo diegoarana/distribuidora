@@ -36,7 +36,7 @@
 					{%endif%}
 				</td>
 				<td> {% if a.user.id == user.id %}
-				<a href=""><span style="color: #1E90FF; font-size: 18px" class="glyphicon glyphicon-pencil"></span></a>
+				<a href="{% url "adminChangePass" a.user_id %}"><span style="color: #1E90FF; font-size: 18px" class="glyphicon glyphicon-pencil"></span></a>
 					{%endif%}
 				</td>
 

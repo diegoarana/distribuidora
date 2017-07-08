@@ -1,6 +1,6 @@
 {% extends "base_admin.html" %}
 {% load crispy_forms_tags %}
-{% block hover-d %}active{% endblock %}
+{% block hover-a %}active{% endblock %}
 
 {% block content %}
 
@@ -9,13 +9,13 @@
 
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				Editar distribuidor
+				Cambiar contraseña
 			</div>
 			<div class="panel-body">
 				
 			<form action="" method="post">{% csrf_token %}
 				
-				{{form_profile|crispy}}
+				{{form_user|crispy}}
 					
 				<br>
 			

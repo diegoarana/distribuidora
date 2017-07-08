@@ -17,7 +17,8 @@
 			<th>Apellido</th>
 			<th>dirección</th>
 			<th>Teléfono</th>
-			<th>Editar</th>
+			<th>Editar perfil</th>
+			<th>Cambiar contraseña</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -28,7 +29,11 @@
 				<td>{{d.surname}}</td>
 				<td>{{d.address}}</td>
 				<td>{{d.phone}}</td>
-				<td><a href="{% url "distrib_edit" d.user_id %}"><span style="color: #1E90FF; font-size: 18px" class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a href="{% url "distrib_edit" d.user_id %}"><span style="color: #1E90FF; font-size: 18px" class="glyphicon glyphicon-pencil"></span></a>
+				</td>
+				<td>
+				<a href="{% url "distribChangePass" d.user_id %}"><span style="color: #1E90FF; font-size: 18px" class="glyphicon glyphicon-pencil"></span></a>
+				</td>
 			</tr>
 			{% endfor %}
 		</tbody>
