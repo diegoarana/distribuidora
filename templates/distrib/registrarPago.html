@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+	<div class="col-md-7 col-lg-7">
+
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				Registrar pago de <b>{{client.name}} {{client.surname}}</b>
+			</div>
+			<div class="panel-body">
+				
+			<form action="" method="post">{% csrf_token %}
+				
+				{{form|crispy}}
+					
+				<br>
+			
+			<input type="submit" value="Pagar" class="btn btn-primary btn-block">
+				
+			</form>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}

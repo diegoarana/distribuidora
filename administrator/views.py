@@ -11,6 +11,7 @@ from distrib.models.client import Client
 from distrib.models.sale_visit import Sale_visit
 from distrib.models.profile import Profile
 from distrib.models.product import Product
+from distrib.models.payment import Payment
 #forms
 from administrator.forms import ClientForm
 from administrator.forms import ProfileForm
@@ -66,6 +67,12 @@ def client_visits(request, id):
 	client = get_object_or_404(Client, id=id)
 	visits = client.get_visits()
 	return render(request, 'admin/client_visits.html', {'client':client, 'visits':visits})
+
+@login_required
+def client_payments(request, id):
+	client = get_object_or_404(Client, id=id)
+	payments = client.get_payments()
+	return render(request, 'admin/client_payments.html', {'client':client, 'payments':payments})
 
 @login_required
 def client_borrowed(request, id):

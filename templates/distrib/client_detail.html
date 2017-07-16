@@ -7,8 +7,10 @@
 <h3>DNI: {{client.dni}}</h3>
 <h3>Dirección: {{client.address}}</h3>
 <h3>Telefono: {{client.phone}}</h3>
+<h3 style="font-style: italic;" ><b>Debe: ${{client.debt}}</b></h3>
 <br>
 
+{% if borrow %}
 <table class="table">
 	<thead>
 		<tr>
@@ -17,8 +19,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% if borrow %}
-
+		
 		{% for key,value in borrow.items %}
 		<tr>
 			<td>
@@ -29,19 +30,21 @@
 			</td>
 		</tr>
 		{% endfor %}
-
-		{% else %}
-		<b>No tiene envases prestados</b>
-		{% endif %}
 	</tbody>
 </table>
+{% else %}
+<div>
+<h4><b>No tiene envases prestados</b></h4>
+</div>
+{% endif %}
+
 <br>
 
 <a href="{% url "sale_visit" client.id %}"><button type="submit" class="btn btn-primary btn-block">Venta / visita</button></a>
 <br>
-<a href=""><button type="submit" class="btn btn-primary btn-block" href="">Pagar</button></a>
+<a href="{% url "registrarPago" client.id %}"><button type="submit" class="btn btn-primary btn-block">Pagar</button></a>
 <br>
-<a href="{% url "detail_borrowed" client.id %}"><button type="submit" class="btn btn-primary btn-block" href="">Devolver envases</button></a>
+<a href="{% url "detail_borrowed" client.id %}"><button type="submit" class="btn btn-primary btn-block">Devolver envases</button></a>
 
 
 {% endblock %}

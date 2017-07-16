@@ -24,6 +24,7 @@ urlpatterns = [
 			url(r'^client/(?P<id>[0-9]+)/sales$', views.client_sales, name='client_sales'),
 			url(r'^client/(?P<id>[0-9]+)/visits$', views.client_visits, name='client_visits'),
 			url(r'^client/(?P<id>[0-9]+)/borrowed$', views.client_borrowed, name='client_borrowed'),
+			url(r'^client/(?P<id>[0-9]+)/payments$', views.client_payments, name='client_payments'),
 			url(r'^client/delete/(?P<id>[0-9]+)/$', views.client_delete, name='client_delete'),
 
 			]))

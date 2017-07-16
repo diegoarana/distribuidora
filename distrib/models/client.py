@@ -12,7 +12,7 @@ class Client(models.Model):
 	dni = models.PositiveIntegerField(help_text="(Solamente dígitos)", validators=[MaxValueValidator(99999999)], blank=False, null=False,)
 	phone = models.PositiveIntegerField(help_text="(Solamente dígitos)", validators=[MaxValueValidator(999999999999999)], blank=False, null=False,)
 	address = models.CharField(blank=False, null=False, max_length=30)
-	debt = models.OneToOneField(Debt, on_delete=models.CASCADE, null=True)
+	debt = models.PositiveIntegerField(validators=[MaxValueValidator(999999)], null=False, default=0)
 
 	def __str__(self):
 		return self.name
@@ -59,6 +59,10 @@ class Client(models.Model):
 	def get_visits(self):
 		v = self.sale_visit_set.filter(succes=False)
 		return v
+
+	def get_payments(self):
+		p = self.payment_set.all()
+		return p
 
 	def get_name(self):
 		return self.name

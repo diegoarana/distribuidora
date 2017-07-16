@@ -9,6 +9,7 @@ from .models.profile import Profile
 
 from distrib.forms import SaleVisitForm
 from distrib.forms import SaleItemForm
+from distrib.forms import PaymentForm
 
 from .serializers.client import ClientSerializer
 
@@ -121,6 +122,9 @@ def sale_visit(request, id):
 				# Metodo que calcula el monto total en la venta
 				sale.total_amount = sale.calculate_total()
 				sale.save()
+				# sumo el monto total de la venta a la deuda del cliente
+				client.debt += sale.total_amount
+				client.save()
 				# metodo que asigna envases prestados al cliente dependiendo de la venta
 				sale.borrow_products()
 		
@@ -141,3 +145,22 @@ def sale_visit(request, id):
 
 	return render(request, 'distrib/sale_visit.html', {'client':client, 'form':form, 'listaForm':listaForm, 'products':products})
 
+
+def registrarPago(request, id):
+	client = get_object_or_404(Client, id=id)
+
+	if request.method == "POST":
+		form = PaymentForm(request.POST)
+
+		if form.is_valid(): 
+			payment = form.save(commit=False)
+			payment.client = client
+			payment.save()
+			client.debt -= payment.amount 
+			client.save()
+			return redirect('client_detail', id=id)
+
+	else:
+		form = PaymentForm()
+
+	return render(request, 'distrib/registrarPago.html', {'client':client, 'form':form})

@@ -7,6 +7,7 @@
 <h3>DNI: {{client.dni}}</h3>
 <h3>Dirección: {{client.address}}</h3>
 <h3>Telefono: {{client.phone}}</h3>
+<h3 style="font-style: italic;" ><b>Debe: ${{client.debt}}</b></h3>
 
 <br>
 
@@ -16,7 +17,7 @@
 <a href="{% url "client_visits" client.id %}"><button class="btn btn-default btn-lg"><i class="fa fa-eye" aria-hidden="true"></i> Historial de visitas</button></a>
 <br>
 <br>
-<a href=""><button class="btn btn-default btn-lg"><i class="fa fa-money" aria-hidden="true"></i> Historial de pagos</button></a>
+<a href="{% url "client_payments" client.id %}"><button class="btn btn-default btn-lg"><i class="fa fa-money" aria-hidden="true"></i> Historial de pagos</button></a>
 <br>
 <br>
 <a href="{% url "client_borrowed" client.id %}"><button class="btn btn-default btn-lg"><i class="fa fa-glass" aria-hidden="true"></i> Envases prestados</button></a>
