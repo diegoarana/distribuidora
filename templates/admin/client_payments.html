@@ -13,6 +13,7 @@
 		<thead>
 			<tr>
 			<th>Fecha</th>
+			<th>Distribuidor</th>
 			<th>Monto</th>
 			</tr>
 		</thead>
@@ -20,13 +21,14 @@
 			{% for p in payments %}
 			<tr>
 				<td>{{p.date}}</td>
+				<td>{{p.distributor.name}} {{p.distributor.surname}}</td>
 				<td>$ {{p.amount}}</td>
 			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
 	{% else %}
-		<h3>No hay pagos registrados</h3>
+		<h3>No tiene pagos registrados</h3>
 	{% endif %}
 
 	</div>

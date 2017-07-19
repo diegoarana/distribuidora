@@ -8,6 +8,7 @@
 		Historial de visitas
 	</div>
 	<div class="panel-body">
+	{% if visits %}
 		
 	<table class="table table-hover">
 		<thead>
@@ -29,6 +30,9 @@
 			{% endfor %}
 		</tbody>
 	</table>
+	{% else %}
+		<h3>No existen visitas registradas</h3>
+	{% endif %}
 
 	</div>
 </div>

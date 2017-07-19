@@ -14,6 +14,9 @@ class Client(models.Model):
 	address = models.CharField(blank=False, null=False, max_length=30)
 	debt = models.PositiveIntegerField(validators=[MaxValueValidator(999999)], null=False, default=0)
 
+	class Meta:
+		ordering = ['surname']
+
 	def __str__(self):
 		return self.name
 

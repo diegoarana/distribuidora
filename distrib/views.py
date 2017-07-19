@@ -155,6 +155,7 @@ def registrarPago(request, id):
 		if form.is_valid(): 
 			payment = form.save(commit=False)
 			payment.client = client
+			payment.distributor = request.user.usuario
 			payment.save()
 			client.debt -= payment.amount 
 			client.save()

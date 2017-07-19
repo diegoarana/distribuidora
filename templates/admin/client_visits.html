@@ -8,7 +8,7 @@
 		Lista de visitas a <b>{{client.name}} {{client.surname}}</b>
 	</div>
 	<div class="panel-body">
-		
+	{% if visits %}	
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -27,6 +27,9 @@
 			{% endfor %}
 		</tbody>
 	</table>
+	{% else %}
+		<h3>No tiene visitas registradas</h3>
+	{% endif %}
 
 	</div>
 </div>

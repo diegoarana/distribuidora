@@ -10,9 +10,7 @@
 
 {% if borrow %}
 
-	<h3>Envases prestados a</h3>
-	<h3><b>{{client.name}} {{client.surname}}</b></h3>    
-	<br>
+	<h4>Envases prestados a <b>{{client.name}} {{client.surname}}</b></h4>    
 
 	<h4 class="text-info">Ingrese la cantidad de envases que el cliente devuelve de cada producto. En número
 	 ingresado debe ser menor o igual al número de envases prestados.</h4>	
@@ -84,46 +82,5 @@
 		  </div>
 		  </div>
 
-
-{% endblock %}
-
-{% block extra_js %}
-
-<script type="text/javascript">
-
-	/* 
-	$('#devolver').click(function (e) {
-
-	var resultado = new Map();
-
-	e.preventDefault();
-
-	// Validar que la cantidad de envases ingresada sea menor a la que tiene prestado
-	// Si los valores son correctos, se muestra el modal con los datos ingresados para confirmar la devolucion
-	// si los valores son incorrectos, se muestra en el modal cual es el campo de error y solamente la opcion de cerrar el modal, no se podrá continuar
-
-	{% for key,value in borrow.items %}
-	// puede que no funcione porque algunos valores tomados sean nulos, verificar
-	if ( parseInt($('#{{key}}').val()) > {{value}} ){
-		resultado.set('{{key}}', false);
-	}else{
-		resultado.set('{{key}}', true);
-	}
-
-	{% endfor %}
-
-	valores = resultado.prototype.values();
-	// buscar que la lista contenga un false
-	a = valores.includes(false);
-
-	$( "#inner" ).html(valores);
-	console.log(valores);
-
-	// if resultado contiene algun false es proque hay campos invalidos
-	
-	});
-	*/
-
-</script>
 
 {% endblock %}

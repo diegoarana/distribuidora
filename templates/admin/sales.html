@@ -10,7 +10,7 @@
 		Historial de ventas
 	</div>
 	<div class="panel-body">
-		
+	{% if sales %}
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -35,6 +35,9 @@
 			{% endfor %}
 		</tbody>
 	</table>
+	{% else %}
+		<h3>No existen ventas registradas</h3>
+	{% endif %}
 
 	</div>
 </div>

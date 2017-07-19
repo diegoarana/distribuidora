@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3 style="text-align: center"><b>Información del cliente</b></h3>
-<br>
+<div class="row">
+<div class="col-md-12 col-xs-11">
+
+<div class="panel panel-info">
+
+<div class="panel-heading">
+	<h4 style="text-align: center"><b>Información</b></h4>
+</div>
+
+<div class="panel-body">
+
 <h3>Nombre: {{client.name}} {{client.surname}}</h3>
 <h3>DNI: {{client.dni}}</h3>
 <h3>Dirección: {{client.address}}</h3>
@@ -41,10 +50,18 @@
 <br>
 
 <a href="{% url "sale_visit" client.id %}"><button type="submit" class="btn btn-primary btn-block">Venta / visita</button></a>
+
+{% if client.debt != 0 %}
 <br>
 <a href="{% url "registrarPago" client.id %}"><button type="submit" class="btn btn-primary btn-block">Pagar</button></a>
+{%endif%}
 <br>
 <a href="{% url "detail_borrowed" client.id %}"><button type="submit" class="btn btn-primary btn-block">Devolver envases</button></a>
 
+</div>
 
+</div>
+
+</div>
+</div>
 {% endblock %}

@@ -10,7 +10,6 @@
 {% block content %}
 
 
-{% if borrow %}
 <div class="panel panel-info">
 	<div class="panel-heading">
 	Envases prestados a <b>{{client.name}} {{client.surname}}</b>
@@ -18,7 +17,7 @@
 	 
 	<div class="panel-body">  
 	<br>	
-
+	{% if borrow %}
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -68,12 +67,10 @@
 		</tbody>
 		
 	</table>
+	{% else %}
+		<h3>No tiene envases prestados</h3>
+	{% endif %}
 	</div>
 </div>
-
-{% else %}
-	<b>No tiene envases prestados</b>
-
-{% endif %}
 
 {% endblock %}

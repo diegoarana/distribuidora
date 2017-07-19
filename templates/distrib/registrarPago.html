@@ -3,14 +3,16 @@
 
 {% block content %}
 
-<div class="container">
-	<div class="col-md-7 col-lg-7">
+<div class="row">
+	<div class="col-md-12 col-xs-10">
 
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				Registrar pago de <b>{{client.name}} {{client.surname}}</b>
 			</div>
 			<div class="panel-body">
+
+			<h4>Deuda actual: ${{client.debt}}</h4>
 				
 			<form action="" method="post">{% csrf_token %}
 				
@@ -28,4 +30,10 @@
 	</div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+document.getElementById("id_amount").setAttribute('max','{{client.debt}}');
+</script>
 {% endblock %}
