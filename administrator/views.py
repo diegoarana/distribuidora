@@ -84,8 +84,7 @@ def client_borrowed(request, id):
 def client_delete(request, id):
 	client = get_object_or_404(Client, id=id)
 	client.delete()
-	previous_page = request.META['HTTP_REFERER']
-	return redirect(previous_page)
+	return redirect('inicio_administrador')
 
 # Views de los distribuidores
 @login_required

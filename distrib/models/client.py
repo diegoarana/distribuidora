@@ -45,12 +45,8 @@ class Client(models.Model):
 		# y luego hacer .delete() la cantidad de veces
 		listaPrestados = self.borrowed_set.all()
 		seleccion = listaPrestados.filter(product__name__icontains=nombre)
-		if cantidad > 1:
-			for i in range(cantidad):
-				seleccion[i].delete()
-		else:
-			seleccion[0].delete()
-
+		for s in seleccion:
+			s.delete()
 		return None
 
 
