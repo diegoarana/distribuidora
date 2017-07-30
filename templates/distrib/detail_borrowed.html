@@ -71,7 +71,7 @@
 		        <h4 class="modal-title">¿Esta seguro que desea devolver los envases seleccionados?</h4>
 		      </div>
 		      <div class="modal-body">
-		      <span> <b></b></span><div id="inner"></div>
+		      <span id="inner"> </span>
 		      </div>
 		      <div class="modal-footer">
 		        <input type="submit" class="btn btn-success" value="Si, confirmar" form="formulario">
@@ -83,4 +83,26 @@
 		  </div>
 
 
+{% endblock %}
+
+
+{% block extra_js %}
+<script type="text/javascript">
+
+$('#devolver').click(function (e) {
+	e.preventDefault();
+
+	{% for key,value in borrow.items %}
+
+	cantidad = $("#{{key}}").val();
+
+	if (cantidad!=0){
+		$("#inner").html(cantidad);
+	}
+
+	{% endfor %}
+	
+});
+
+</script>
 {% endblock %}

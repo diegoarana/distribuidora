@@ -44,7 +44,7 @@ class Client(models.Model):
 		# navegar entre relaciones desde cliente para obtener los envases de ese nombre
 		# y luego hacer .delete() la cantidad de veces
 		listaPrestados = self.borrowed_set.all()
-		seleccion = listaPrestados.filter(product__name__icontains=nombre)
+		seleccion = listaPrestados.filter(product__name__icontains=nombre)[:cantidad]
 		for s in seleccion:
 			s.delete()
 		return None
